@@ -1,0 +1,3 @@
+[
+  {"keys": ["shift+f5"], "command": "remove_duplicate_lines"}
+]
