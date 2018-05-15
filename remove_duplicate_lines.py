@@ -28,7 +28,7 @@ class RemoveDuplicateLinesCommand(sublime_plugin.TextCommand):
 
       # Delete all selections in reverse order to preserve the cursor position:
       for deletion_selection in reversed(self.view.sel()):
-        self.view.replace(edit, deletion_selection, "")
+        self.view.erase(edit, deletion_selection)
 
       self.view.sel().clear()
 
