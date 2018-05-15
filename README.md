@@ -10,7 +10,7 @@ There are two ways to use this plugin:
 
 ### Without a selection
 
-This removes all duplicate lines, leaving each line to be unique to the entire file.
+This removes all duplicate lines, leaving the first occurrence of each line to be unique to the entire file.
 
 | Before | After |
 | ------ | ----- |
@@ -18,7 +18,7 @@ This removes all duplicate lines, leaving each line to be unique to the entire f
 
 ### With a selection
 
-This removes all lines from the file that match the selection.
+This removes all other duplicate selections from the file that match the initial selection.
 
 | Before | After |
 | ------ | ----- |
