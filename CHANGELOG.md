@@ -4,7 +4,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 ### Changed:
-- Use the built-in `View.erase()` method to simplify this plugin
+- The built-in `View.erase()` method to simplify this plugin
+- The `README` to reflect that the first occurrence will be kept intact
 
 ## [1.0.0] - 2018-04-21
 ### Added:
