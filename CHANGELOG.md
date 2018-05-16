@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [Unreleased]
+### Added:
+- Installation instructions to the `README`
+
 ## [1.1.0] - 2018-05-14
 ### Added:
 - The command to "Remove Duplicate Lines" to the Command Palette
