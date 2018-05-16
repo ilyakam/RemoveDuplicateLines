@@ -2,6 +2,19 @@
 
 A plugin for [Sublime Text](http://www.sublimetext.com/) that allows you to remove duplicate lines from the file.
 
+## Installation
+
+* **Package Control**
+  1. [Install Package Control](https://packagecontrol.io/installation)
+  1. [Bring up the Command Palette](https://sublime-text.readthedocs.io/en/stable/reference/command_palette.html#how-to-use-the-command-palette) and type "Package Control: Install Package"
+  1. Type "RemoveDuplicateLines" and press <kbd>enter</kbd>
+* **Directly**
+  1. Locate the `Packages` folder in the [data directory](http://docs.sublimetext.info/en/sublime-text-3/basic_concepts.html#the-data-directory)
+  1. Download the [latest version of RemoveDuplicateLines](https://github.com/ilyakam/RemoveDuplicateLines/releases/latest)
+  1. Extract the archive into the `Packages` folder
+* **Development**
+  1. [Follow the instructions on the `CONTRIBUTING` guide](./CONTRIBUTING.md#getting-started)
+
 ## Usage
 
 <kbd>shift</kbd><kbd>F5</kbd> on all platforms. You might also need to hold <kbd>(fn)</kbd> depending on your OS/BIOS configuration.
