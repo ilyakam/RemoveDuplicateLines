@@ -2,6 +2,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [Unreleased]
+### Fixed:
+- Ensure that lines of different lengths are not concatenated together
+- Ensure that trailing lines are preserved
+
 ## [1.2.0] - 2018-05-15
 ### Added:
 - Installation instructions to the `README`
