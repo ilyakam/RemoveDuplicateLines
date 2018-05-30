@@ -26,11 +26,17 @@ class RemoveDuplicateLinesCommand(sublime_plugin.TextCommand):
       # Avoid deleting the existing selection, if any
       self.view.sel().subtract(needle)
 
+      # If we will delete the last line because it's a duplicate, remove the blank line afterwards
+      remove_newline = self.view.sel().contains(sublime.Region(self.view.size(), self.view.size()))
+
       # Delete all selections in reverse order to preserve the cursor position:
       for deletion_selection in reversed(self.view.sel()):
         self.view.erase(edit, deletion_selection)
 
       self.view.sel().clear()
+
+      if remove_newline:
+        self.view.erase(edit, sublime.Region(self.view.size() - 1, self.view.size()))
 
     for region in self.view.sel():
       # Select the entire file:
