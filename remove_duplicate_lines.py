@@ -37,8 +37,12 @@ class RemoveDuplicateLinesCommand(sublime_plugin.TextCommand):
       lines = self.view.lines(sublime.Region(0, self.view.size()))
 
       if region.empty():
-        while len(lines) > 0:
-          delete_lines(lines.pop(0), lines)
+        self.view.sel().subtract(sublime.Region(self.view.size(), self.view.size()))
+        i = 0
+        while self.view.rowcol(self.view.size())[0] > i:
+          delete_lines(self.view.line(self.view.text_point(i, 0)), lines)
+          i += 1
+          lines = self.view.lines(sublime.Region(0, self.view.size()))
 
       else:
         delete_lines(region, lines)
