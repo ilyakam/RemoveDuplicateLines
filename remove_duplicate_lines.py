@@ -1,54 +1,38 @@
 import sublime
 import sublime_plugin
+from collections import OrderedDict
 
 class RemoveDuplicateLinesCommand(sublime_plugin.TextCommand):
   def run(self, edit):
-    """
-    Removes duplicate lines so that each line contains a unique string
-    If a line is selected, it removes duplicate occurrences ONLY of the selection
-    """
+    def de_dupe_all():
+      # 1: Select all text
+      # 2: Split it into lines
+      # 3: Add them to an OrderedDict (maintains order, does not allow duplicates)
+      # 4: Turn it back into a string including newlines
+      new_text = '\n'.join(
+        OrderedDict.fromkeys(
+          self.view.substr(sublime.Region(0, self.view.size())).splitlines()
+          )
+        )
+      # Replace everything with our de-duped text
+      self.view.replace(edit, sublime.Region(0, self.view.size()), new_text)
+    def de_dupe_selection(selection):
+      # 1: Select all text
+      # 2: Split it into lines
+      # 3: Add them to a list if they don't match the thing we're removing (or is the copy we selected)
+      # 4: Turn it back into a string including newlines
+      new_text = '\n'.join(
+        [self.view.substr(x) for x in
+          self.view.lines(sublime.Region(0, self.view.size()))
+          if self.view.substr(x) != self.view.substr(selection) or (x.begin() == selection.begin() and x.end() == selection.end())
+        ]
+        )
+      # Replace everything with our de-duped text
+      self.view.replace(edit, sublime.Region(0, self.view.size()), new_text)
 
-    def delete_lines(needle, lines):
-      """
-      Marks lines for deletion one by one and deletes them all at once
-      """
-      needle_contents = self.view.substr(needle)
-      needle_size = needle.size()
-
-      for line in lines:
-        # Improve performance by comparing sizes before contents:
-        if (needle_size == line.size() and
-            needle_contents == self.view.substr(line)):
-
-          # Mark line for deletion by adding it to the selection:
-          self.view.sel().add(self.view.full_line(line))
-
-      # Avoid deleting the existing selection, if any
-      self.view.sel().subtract(needle)
-
-      # If we will delete the last line because it's a duplicate, remove the blank line afterwards
-      remove_newline = self.view.sel().contains(sublime.Region(self.view.size(), self.view.size()))
-
-      # Delete all selections in reverse order to preserve the cursor position:
-      for deletion_selection in reversed(self.view.sel()):
-        self.view.erase(edit, deletion_selection)
-
-      self.view.sel().clear()
-
-      if remove_newline:
-        self.view.erase(edit, sublime.Region(self.view.size() - 1, self.view.size()))
-
-    for region in self.view.sel():
-      # Select the entire file:
-      lines = self.view.lines(sublime.Region(0, self.view.size()))
-
-      if region.empty():
-        self.view.sel().subtract(sublime.Region(self.view.size(), self.view.size()))
-        i = 0
-        while self.view.rowcol(self.view.size())[0] > i:
-          delete_lines(self.view.line(self.view.text_point(i, 0)), lines)
-          i += 1
-          lines = self.view.lines(sublime.Region(0, self.view.size()))
-
-      else:
-        delete_lines(region, lines)
+    if len([x for x in self.view.sel() if not x.empty()]) == 0:
+      # Nothing selected, so run for all lines
+      de_dupe_all()
+    else:
+      # Run for each non-empty selection
+      [de_dupe_selection(x) for x in self.view.sel() if not x.empty()]
