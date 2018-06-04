@@ -2,7 +2,7 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unreleased]
+## [2.0.0] - 2018-06-03
 ### Added:
 - Ability to remove all duplicate lines within one or more selection(s)
 - Ability to preserve selection after removal
