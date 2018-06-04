@@ -3,71 +3,36 @@ import sublime_plugin
 from collections import OrderedDict
 
 class RemoveDuplicateLinesCommand(sublime_plugin.TextCommand):
+  def dedupe(self, selection, edit):
+    """
+    Removes duplicate lines from the selected region by splitting it into lines,
+    adding them into an `OrderedDict` which automatically removes duplicates,
+    and combines everything back into a string with newlines
+    """
+
+    selection = self.view.expand_by_class(selection, sublime.CLASS_LINE_END)
+
+    lines = self.view.substr(selection).splitlines()
+
+    text = '\n'.join(OrderedDict.fromkeys(lines))
+
+    self.view.replace(edit, selection, text)
+
   def run(self, edit):
     """
     Removes duplicate lines so that each line contains a unique string
-    If a line is selected, it removes ONLY its duplicate occurrences elsewhere
-    in the file
+    If one or more multiline regions are selected, it removes the duplicate
+    lines that are confined within each of the regions
     """
 
-    def dedupe_file():
-      """
-      Removes duplicates from the entire file by splitting it into lines, adding
-      them into an `OrderedDict` which  preserves order and removes duplicates,
-      and combines everything back into a string with newlines
-      """
+    non_empty_selections = [selection for selection in self.view.sel()
+                            if not selection.empty()]
 
-      lines = self.view.substr(sublime.Region(0, self.view.size())).splitlines()
+    if non_empty_selections:
+      [self.dedupe(selection, edit)
+       for selection in reversed(non_empty_selections)]
 
-      text = '\n'.join(OrderedDict.fromkeys(lines))
+    else:
+      entire_file = sublime.Region(0, self.view.size())
 
-      replace(text)
-
-    def dedupe_selection(selection):
-      """
-      Removes duplicates from the rest of the file where the selection exists on
-      other lines by keeping the lines that do not match the selection and
-      recombining them back into a string with newlines
-      """
-
-      lines = []
-
-      for line in self.view.lines(sublime.Region(0, self.view.size())):
-        is_other_line = (self.view.substr(line) != self.view.substr(selection)
-                         or (line.begin() == selection.begin()
-                             and line.end() == selection.end()))
-
-        if is_other_line:
-          lines.append(self.view.substr(line))
-
-      text = '\n'.join(lines)
-
-      replace(text)
-
-    def main():
-      """
-      Removes duplicates from non-empty selections only when they exist;
-      otherwise, removes duplicates from the entire file
-      """
-
-      non_empty_selections = [selection for selection in self.view.sel()
-                              if not selection.empty()]
-
-      if non_empty_selections:
-        [dedupe_selection(selection)
-         for selection in reversed(non_empty_selections)]
-
-      else:
-        dedupe_file()
-
-    def replace(text):
-      """
-      Replaces the entire file with text and moves the cursor to the top
-      """
-
-      self.view.replace(edit, sublime.Region(0, self.view.size()), text)
-      self.view.sel().clear()
-
-      self.view.sel().add(0)
-
-    main()
+      self.dedupe(entire_file, edit)

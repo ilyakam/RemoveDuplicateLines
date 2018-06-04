@@ -2,6 +2,17 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [Unreleased]
+### Added:
+- Ability to remove all duplicate lines within one or more selection(s)
+- Ability to preserve selection after removal
+
+### Changed:
+- The `README` to reflect the new functionality including screenshots
+
+### Removed:
+- Ability to remove all lines that match the selection
+
 ## [1.2.1] - 2018-06-03
 ### Fixed:
 - Ensure that lines of different lengths are not concatenated together
