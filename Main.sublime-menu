@@ -1,0 +1,13 @@
+[
+  {
+    "id": "edit",
+    "children": [
+      {
+        "caption": "Remove Duplicate Lines",
+        "command": "remove_duplicate_lines",
+        "id": "sort_lines",
+        "mnemonic": "R"
+      }
+    ]
+  }
+]
