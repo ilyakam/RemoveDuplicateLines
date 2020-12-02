@@ -19,6 +19,8 @@ A plugin for [Sublime Text](http://www.sublimetext.com/) that allows you to remo
 
 ## Usage
 
+Edit menu ---> Remove Duplicate Lines
+
 <kbd>shift</kbd><kbd>F5</kbd> on all platforms. You might also need to hold <kbd>(fn)</kbd> depending on your OS/BIOS configuration.
 
 There are two ways to use this plugin:
