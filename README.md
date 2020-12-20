@@ -10,7 +10,7 @@ A plugin for [Sublime Text](http://www.sublimetext.com/) that allows you to remo
   1. Type "RemoveDuplicateLines" and press <kbd>enter</kbd>
 
 * **Directly**
-  1. Locate the `Packages` folder in the [data directory](http://docs.sublimetext.info/en/sublime-text-3/basic_concepts.html#the-data-directory)
+  1. Locate the `Packages` folder in the [data directory](https://docs.sublimetext.io/guide/getting-started/basic-concepts.html#the-data-directory)
   1. Download the [latest version of RemoveDuplicateLines](https://github.com/ilyakam/RemoveDuplicateLines/releases/latest)
   1. Extract the archive into the `Packages` folder
 
