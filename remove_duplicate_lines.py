@@ -1,12 +1,9 @@
 import sublime
 import sublime_plugin
-from collections import OrderedDict
 import re
 
 
 class RemoveDuplicateLinesCommand(sublime_plugin.TextCommand):
-    ignore = [r'^\W*$']
-
     def dedupe(self, selection, edit):
         """
         Removes duplicate lines from the selected region by splitting it into lines,
@@ -14,12 +11,15 @@ class RemoveDuplicateLinesCommand(sublime_plugin.TextCommand):
         and combines everything back into a string with newlines
         """
 
+        settings = sublime.load_settings("RemoveDuplicateLines.sublime-settings")
+        ignorelist = settings.get("ignore_regex", [])
+
         selection = self.view.expand_by_class(selection, sublime.CLASS_LINE_END)
 
         seen = set()
         lines = []
         for line in self.view.substr(selection).splitlines():
-            if any(re.match(pattern, line) for pattern in self.ignore):
+            if any(re.match(pattern, line) for pattern in ignorelist):
                 lines.append(line)
             else:
                 if line not in seen:

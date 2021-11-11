@@ -41,6 +41,10 @@ This plugin can be used in two different ways:
     | :----- | :---- |
     | ![with_selection_before](https://user-images.githubusercontent.com/183227/40892302-1488c674-674a-11e8-9dce-92fff33cb903.png) | ![with_selection_after](https://user-images.githubusercontent.com/183227/40892303-14b18f64-674a-11e8-9d81-cf865d06565b.png)
 
+There is one optional setting to configure, `ignore_regex`, which is a list of regular expressions. Any line matching any regular expression in this list will be left in-place, even if it is a duplicate line.
+
+For example, to preserve whitespace when removing duplicates, set `ignore_regex` to `["^\\W*$"]` 
+
 ## Changelog
 
 See [CHANGELOG.md](./CHANGELOG.md)
