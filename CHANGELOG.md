@@ -2,7 +2,7 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unreleased]
+## [2.1.1] - 2024-04-03
 ### Fixed
 - Code style to follow the PEP8 style guide
 - Remove colons from all subheadings in this changelog
