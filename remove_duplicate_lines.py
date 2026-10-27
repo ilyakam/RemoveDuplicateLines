@@ -13,7 +13,8 @@ class RemoveDuplicateLinesCommand(sublime_plugin.TextCommand):
 
         selection = self.view.expand_by_class(selection, sublime.CLASS_LINE_END)
 
-        lines = self.view.substr(selection).splitlines()
+        # Include the final empty line so it is deduplicated like any other line.
+        lines = self.view.substr(selection).split("\n")
 
         text = "\n".join(OrderedDict.fromkeys(lines))
 
