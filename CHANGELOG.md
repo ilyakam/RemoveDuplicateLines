@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [2.1.2] - 2026-10-27
+### Fixed
+- Avoid dropping a unique final empty line when removing duplicates
+
 ## [2.1.1] - 2024-04-03
 ### Fixed
 - Code style to follow the PEP8 style guide
